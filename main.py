@@ -8,11 +8,12 @@ data =None
 
 def loadData():
     global data
-    # Load the data from the comma-separated csv file. 
+    global InputOutputVariables
+
     df = pd.read_csv("ENB2012_data.csv")
     x = df.loc[: , 'X1':'X8']
     y = df.loc[: ,'Y1':'Y2']
-    data = Data.Data(x,y)
+    data = Data.Data(x,y, InputOutputVariables)
 
 loadData()
 data.plotInputScatterMatrix()
