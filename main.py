@@ -20,8 +20,8 @@ def trainData():
 
 loadData()
 trainData()
-#data.plotInputScatterMatrix()
-#data.plotAllInputOutput()
+data.plotInputScatterMatrix()
+data.plotAllInputOutput()
 
 
 

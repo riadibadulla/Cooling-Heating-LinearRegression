@@ -9,7 +9,7 @@ class Data:
     x = None                        #Input values in dataframe
     y = None                        #Output values in dataframe
     df = None                       #Full dataframe
-    fig = plt.figure()              #matplotlib figure
+    fig = None                      #matplotlib figure
     InputOutputVariables = []       #Names of the variables of the data
 
     def __init__(self,df, InputOutputVariables):
@@ -23,18 +23,20 @@ class Data:
     def plotInputScatterMatrix(self):
         pd.plotting.scatter_matrix(self.x,alpha=0.2,marker='*')
 
-    def plotData(self,x,y,subplotNumber):
+    def plotData(self,x,y,subplotNumber,yNumber):
         ax = self.fig.add_subplot(331+subplotNumber)
         ax.grid(color='lightgray', linestyle='-', linewidth=1)
         ax.set_axisbelow(True)
         ax.scatter(x, y,color='red', alpha=.1, s=140, marker='.')
         ax.set_xlabel('x'+str(subplotNumber+1))
-        ax.set_ylabel('y1')
+        ax.set_ylabel(yNumber)
         plt.savefig('plot_scatter2D.png')
 
     def plotAllInputOutput(self):
-        for i in range(8):
-            self.plotData(self.x_values[:,i],self.y_values[:,0],i)
+        for j in range(2):
+            self.fig = plt.figure()
+            for i in range(8):
+                self.plotData(self.x_values[:,i],self.y_values[:,j],i,"y"+str(j+1))
         plt.show()
     
     def splitDataToTrainAdndTest(self):
