@@ -16,7 +16,6 @@ class Data:
         self.df = df
         self.df = self.df.drop("X1",1)
         self.df = self.df.drop("X4",1)
-        print(self.df)
         self.x = df.loc[: , 'X1':'X8']
         self.y = df.loc[: ,'Y1':'Y2']
         self.x_values = self.x.values
@@ -44,11 +43,6 @@ class Data:
         plt.show()
     
     def correlation(self):
-        # corr = self.df.corr()
-        # corr.style.background_gradient(cmap='coolwarm')
-        # plt.matshow(corr)
-        # plt.show()
-        # return corr
         import seaborn as sns
         corr = self.df.corr()
         sns.heatmap(corr, xticklabels=corr.columns.values, yticklabels=corr.columns.values, annot = True)

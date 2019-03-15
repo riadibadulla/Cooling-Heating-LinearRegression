@@ -1,6 +1,7 @@
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import r2_score
+from sklearn.preprocessing import PolynomialFeatures
 import matplotlib.pyplot as plt
 import numpy as np
 class TrainingModel:
@@ -54,3 +55,17 @@ class TrainingModel:
             self.plotAllInputOutput(linreg.predict(self.train_x))
             self.plotAllInputOutputTest(linreg.predict(self.test_x))
         return (self.train_x, linreg.predict(self.train_x))
+    
+    def polynomial(self, plot):
+        x = self.train_x.values
+        y = self.train_y.values
+        poly = PolynomialFeatures(degree = 4)
+        X_poly = poly.fit_transform(x)
+        X_poly_test = poly.fit_transform(self.test_x.values)
+        lin_reg = LinearRegression()
+        lin_reg.fit(X_poly, self.train_y)
+        y_hat = lin_reg.predict(X_poly)
+        print('MSE Train = ', mean_squared_error(y,y_hat))
+        if plot:
+            self.plotAllInputOutput(lin_reg.predict(X_poly))
+            self.plotAllInputOutputTest(lin_reg.predict(X_poly_test))
