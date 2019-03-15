@@ -5,6 +5,7 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.model_selection import KFold
 import matplotlib.pyplot as plt
 import numpy as np
+
 class TrainingModel:
 
     train_x = None
@@ -30,6 +31,7 @@ class TrainingModel:
         ax.set_ylabel(yNumber)
         plt.savefig('plot_scatter2D.png')
 
+    "Training data plot"
     def plotAllInputOutput(self,predictedY):
         for j in range(2):
             self.fig = plt.figure()
@@ -37,6 +39,7 @@ class TrainingModel:
                 self.plotData(self.train_x.values[:,i],self.train_y.values[:,j],predictedY[:,j], i,"y"+str(j+1), "Training values")
         plt.show()
     
+    "Testing data plot"
     def plotAllInputOutputTest(self,predictedY):
         for j in range(2):
             self.fig = plt.figure()
@@ -45,6 +48,7 @@ class TrainingModel:
         plt.show()
 
     def trainViaLinearRegression(self,plot):
+        print("\n\n\nLinear regression")
         linreg = LinearRegression(normalize=True)
         x = self.train_x.values
         y = self.train_y.values
@@ -52,13 +56,14 @@ class TrainingModel:
         y_hat = linreg.predict(self.test_x.values)
         y_hat_train = linreg.predict(x)
         print('MSE = ', mean_squared_error(self.test_y.values,y_hat))
-        print(r2_score(self.test_y.values,y_hat))
+        #print(r2_score(self.test_y.values,y_hat))
         if plot:
             self.plotAllInputOutput(linreg.predict(self.train_x))
             self.plotAllInputOutputTest(linreg.predict(self.test_x))
         return (self.train_x, linreg.predict(self.train_x))
 
     def findTheBestPolynomialDegree(self):
+        print("\n\n\nBEST POLYNOMIAL DEGREE")
         x = self.train_x.values
         y = self.train_y.values
         MSE_min = 2
@@ -78,6 +83,7 @@ class TrainingModel:
         print("Best Order- ",bestOrder," MSE = ",MSE_min)
     
     def polynomial(self, plot):
+        print("\n\n\nPOLYNOMIAL Regression")
         x = self.train_x.values
         y = self.train_y.values
         poly = PolynomialFeatures(degree = 4)
@@ -86,12 +92,13 @@ class TrainingModel:
         lin_reg = LinearRegression()
         lin_reg.fit(X_poly, self.train_y)
         y_hat = lin_reg.predict(X_poly_test)
-        print('MSE Train = ', mean_squared_error(self.test_y.values,y_hat))
+        print('MSE (Polynomial 4) = ', mean_squared_error(self.test_y.values,y_hat))
         if plot:
             self.plotAllInputOutput(lin_reg.predict(X_poly))
             self.plotAllInputOutputTest(lin_reg.predict(X_poly_test))
 
     def kFold(self):
+        print("\n\n\n\nCross validation")
         train_x = self.train_x.values
         train_y = self.train_y.values
         poly = PolynomialFeatures(degree = 4)

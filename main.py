@@ -13,18 +13,17 @@ def loadData():
     global data
     global InputOutputVariables
     df = pd.read_csv("ENB2012_data.csv")
-    data = Data.Data(df, InputOutputVariables)
+    data = Data.Data(df)
 
 def trainData():
     preparedData = data.splitDataToTrainAdndTest()
     model = Train.TrainingModel(preparedData[0],preparedData[1],preparedData[2],preparedData[3])
-    #model.trainViaLinearRegression(True)
-    #model.polynomial(True)
-    #model.findTheBestPolynomialDegree()
+    model.trainViaLinearRegression(True)
+    model.polynomial(True)
+    model.findTheBestPolynomialDegree()
     model.kFold()
 
 loadData()
-#data.plotInputScatterMatrix()
-#print(data.correlation())
-#data.plotAllInputOutput()
+data.plotInputScatterMatrix()
+data.plotAllInputOutput()
 trainData()
