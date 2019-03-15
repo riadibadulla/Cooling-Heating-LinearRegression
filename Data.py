@@ -38,6 +38,7 @@ class Data:
     def plotAllInputOutput(self):
         for j in range(2):
             self.fig = plt.figure()
+            self.fig.set_title("Hello")
             for i in range(len(self.x_values[0])):
                 self.plotData(self.x_values[:,i],self.y_values[:,j],i,"y"+str(j+1))
         plt.show()
