@@ -19,7 +19,8 @@ def trainData():
     preparedData = data.splitDataToTrainAdndTest()
     model = Train.TrainingModel(preparedData[0],preparedData[1],preparedData[2],preparedData[3])
     model.trainViaLinearRegression(False)
-    model.polynomial(True)
+    #model.polynomial(True)
+    model.findTheBestPolynomialDegree()
 
 loadData()
 #data.plotInputScatterMatrix()
