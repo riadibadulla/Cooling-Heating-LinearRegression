@@ -16,12 +16,14 @@ def loadData():
 def trainData():
     preparedData = data.splitDataToTrainAdndTest()
     model = Train.TrainingModel(preparedData[0],preparedData[1],preparedData[2],preparedData[3])
-    model.trainViaLinearRegression()
+    model.trainViaLinearRegression(False)
 
 loadData()
+print(data.correlation())
+data.plotAllInputOutput()
 trainData()
 data.plotInputScatterMatrix()
-data.plotAllInputOutput()
+
 
 
 

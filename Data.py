@@ -14,6 +14,9 @@ class Data:
 
     def __init__(self,df, InputOutputVariables):
         self.df = df
+        self.df = self.df.drop("X1",1)
+        self.df = self.df.drop("X4",1)
+        print(self.df)
         self.x = df.loc[: , 'X1':'X8']
         self.y = df.loc[: ,'Y1':'Y2']
         self.x_values = self.x.values
@@ -22,6 +25,7 @@ class Data:
 
     def plotInputScatterMatrix(self):
         pd.plotting.scatter_matrix(self.x,alpha=0.2,marker='*')
+        plt.show()
 
     def plotData(self,x,y,subplotNumber,yNumber):
         ax = self.fig.add_subplot(331+subplotNumber)
@@ -35,10 +39,22 @@ class Data:
     def plotAllInputOutput(self):
         for j in range(2):
             self.fig = plt.figure()
-            for i in range(8):
+            for i in range(len(self.x_values[0])):
                 self.plotData(self.x_values[:,i],self.y_values[:,j],i,"y"+str(j+1))
         plt.show()
     
+    def correlation(self):
+        # corr = self.df.corr()
+        # corr.style.background_gradient(cmap='coolwarm')
+        # plt.matshow(corr)
+        # plt.show()
+        # return corr
+        import seaborn as sns
+        corr = self.df.corr()
+        sns.heatmap(corr, xticklabels=corr.columns.values, yticklabels=corr.columns.values, annot = True)
+        plt.show()
+        return corr
+
     def splitDataToTrainAdndTest(self):
         train, test = train_test_split(self.df, test_size=0.35)
         train_x = train.loc[: , 'X1':'X8']
