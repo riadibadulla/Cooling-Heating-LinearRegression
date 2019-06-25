@@ -1,12 +1,7 @@
-# CS
-
-# ID : 180029410
-
-# Report for the Practical 1
 
 # Introduction
 
-The aim of the practical is to build a model which takes 8 inputs and gives an output of 2 variables. The
+The aim of the project is to build a model which takes 8 inputs and gives an output of 2 variables. The
 model predicts Cooling and Heating Load based on the parameters of the building. All buildings have the
 same volume but different dimensions, are built from the same material. Input values are: "Relative
 Compactness", "Surface Area", "Wall Area", "Roof Area", "Overall Height", "Orientation", "Glazing area",
